@@ -1,6 +1,6 @@
 require("dotenv").config();
-
-var keys = require("./keys.js")
+var fs = require("fs");
+var keys = require("./keys.js");
 var axios = require("axios");
 var moment = require("moment");
 var Spotify = require("node-spotify-api");
@@ -18,6 +18,9 @@ switch (action) {
         break;
     case "spotify-this-song":
         music();
+        break;
+    case "do-what-it-says":
+        doIt();
         break;
 }
 
@@ -57,9 +60,6 @@ function music() {
     }
 
     spotify.search({ type: 'track', query: userInput }).then(function (response) {
-        if (userInput === null) {
-            userInput = "The Sign";
-        }
 
         for (var i = 0; i < 5; i++) {
             var musicGroup = response.tracks.items[i].album.artists[0].name;
@@ -73,5 +73,9 @@ function music() {
     }).catch(function (err) {
         console.log(err);
     });
+
+}
+
+function doIt(){
 
 }
