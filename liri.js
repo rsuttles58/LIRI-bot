@@ -22,13 +22,14 @@ switch (action) {
     case "do-what-it-says":
         doIt();
         break;
+
 }
 
 function bands() {
     axios
         .get("https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp")
         .then(function (response) {
-            //   console.log(response.data);
+
             for (var i = 0; i < 9; i++) {
                 console.log("Event#" + (i + 1));
                 console.log("Venue: " + response.data[i].venue.name);
@@ -41,7 +42,7 @@ function bands() {
 function movies() {
     axios.get("http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=trilogy").then(
         function (response) {
-            // console.log(response.data);
+
             console.log("Title: " + response.data.Title);
             console.log("Year Released: " + response.data.Released);
             console.log("imdb Rating: " + response.data.imdbRating);
@@ -77,5 +78,14 @@ function music() {
 }
 
 function doIt(){
-
+    fs.readFile("random.txt", "utf8", function(error, text) {
+        if (error) {
+          return console.log(error);
+        }
+        var data = text.split(",");
+        action = data[0];
+        userInput = data[1];
+        console.log(data);
+        music();
+      });
 }
