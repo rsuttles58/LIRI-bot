@@ -7,7 +7,7 @@ var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
 
 var action = process.argv[2];
-var userInput = process.argv[3];
+var userInput = process.argv.slice(3).join(" ");
 
 switch (action) {
     case "concert-this":
@@ -22,20 +22,24 @@ switch (action) {
     case "do-what-it-says":
         doIt();
         break;
-
 }
 
 function bands() {
     axios
         .get("https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp")
-        .then(function (response) {
+        .then(function (response, Error) {
 
-            for (var i = 0; i < 9; i++) {
-                console.log("Event#" + (i + 1));
-                console.log("Venue: " + response.data[i].venue.name);
-                console.log("Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country);
-                console.log("Time: " + moment(response.data[i].datetime).format('LL'));
+            if (Error){
+                console.log(userInput + " is not currently touring.");
+            } else {
+                for (var i = 0; i < 9; i++) {
+                    console.log("Event#" + (i + 1));
+                    console.log("Venue: " + response.data[i].venue.name);
+                    console.log("Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country);
+                    console.log("Time: " + moment(response.data[i].datetime).format('LL'));
+                }
             }
+
         })
 }
 
@@ -65,7 +69,11 @@ function music() {
         for (var i = 0; i < 5; i++) {
             var musicGroup = response.tracks.items[i].album.artists[0].name;
             var songName = response.tracks.items[i].name;
-            var previewLink = response.tracks.items[i].preview_url;
+            if (response.tracks.items[i].preview_url === null){
+                var previewLink = "No preview available."
+            } else {
+                var previewLink = response.tracks.items[i].preview_url;
+            }
             var album = response.tracks.items[i].album.name;
             console.log("Spotify Data-");
             console.log("Arist: " + musicGroup + "\nSong: " + songName + "\nPreview: " + previewLink + "\nAlbum: " + album + "\n");
