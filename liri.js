@@ -93,7 +93,6 @@ function doIt(){
         var data = text.split(",");
         action = data[0];
         userInput = data[1];
-        console.log(data);
         music();
       });
 }
