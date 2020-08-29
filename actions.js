@@ -18,7 +18,7 @@ function bands(userInput) {
       if (Error) {
         console.log(`${userInput} is not currently touring.`);
       } else {
-        for (var i = 0; i < 9; i++) {
+        for (let i = 0; i < 9; i++) {
           const data = response.data[i];
           console.log("Event#" + (i + 1));
 
@@ -33,6 +33,9 @@ function bands(userInput) {
 }
 
 function movies(userInput) {
+  if (!userInput) {
+    userInput = "Ghostbusters";
+  }
   axios
     .get(`http://www.omdbapi.com/?t=${userInput}&y=&plot=short&apikey=trilogy`)
     .then(function (response) {
@@ -55,7 +58,7 @@ function music(userInput) {
 
   spotify
     .search({ type: "track", query: userInput })
-    .then(function (response) {
+    .then( response => {
       for (let i = 0; i < 5; i++) {
         const data = response.tracks.items[i]
         let musicGroup = data.album.artists[0].name;
@@ -79,11 +82,11 @@ function music(userInput) {
 }
 
 function doIt() {
-  fs.readFile("random.txt", "utf8", function (error, text) {
+  fs.readFile("random.txt", "utf8", (error, text) =>{
     if (error) {
       return console.log(error);
     }
-    var data = text.split(",");
+    let data = text.split(",");
     action = data[0];
     userInput = data[1];
     music(userInput);
