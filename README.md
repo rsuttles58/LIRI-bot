@@ -13,10 +13,10 @@ npm install axios
 ## How to run the program
 
 Use any of the available commands to run the program:
-- **"concert-this"** - Will search the API for BandsinTown and give you the next 10 upcoming concerts for the group you search for.
-- **"movies-this"** - Will search for movies in the OMDB API.
-- **"spotify-this-song"** - Will search Spotify for a song and return 5 matches.
-- **"do-what-it-says"** - Is the equivalent of a random search.  It will search spotify for a song that I have saved in a file.
+- **"concerts"** - Will search the API for BandsinTown and give you the next 10 upcoming concerts for the group you search for.
+- **"movies"** - Will search for movies in the OMDB API.
+- **"spotify"** - Will search Spotify for a song and return 5 matches.
+- **"random"** - Is the equivalent of a random search.  It will search spotify for a song that I have saved in a file.
 
 Example of running the application below:
 
